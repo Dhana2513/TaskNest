@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "337306201300",
+    "project_id": "tasknest-ba6dc",
+    "storage_bucket": "tasknest-ba6dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:337306201300:android:e024333a9300137e825f41",
+        "android_client_info": {
+          "package_name": "com.task.nest.task_next"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPd3zNQl0m4RRkcSH4bPnuwL6fsrNa950"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
