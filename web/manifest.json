@@ -1,6 +1,6 @@
 {
-    "name": "task_next",
-    "short_name": "task_next",
+    "name": "task_nest",
+    "short_name": "task_nest",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

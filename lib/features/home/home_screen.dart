@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:task_nest/core/widgets/main_scaffold.dart';
+
+import '../../core/constants/asset_images.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,6 +13,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return MainScaffold(
+      body: Image(
+        image: AssetImages.shared.appLogo,
+      ),
+    );
   }
 }
