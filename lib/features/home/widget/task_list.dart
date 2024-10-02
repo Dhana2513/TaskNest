@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:task_nest/core/extensions/box_padding.dart';
 import 'package:task_nest/core/services/firestore.dart';
 import 'package:task_nest/shared/type/task_type.dart';
 
 import '../../../shared/model/task.dart';
+import 'task_item_view.dart';
 
 class TaskList extends StatefulWidget {
   const TaskList({super.key, required this.taskType});
@@ -24,12 +26,18 @@ class _TaskListState extends State<TaskList>
       builder: (context, snapshot) {
         final tasks = snapshot.data ?? [];
 
-        return ListView.builder(
-          itemCount: tasks.length,
-          itemBuilder: (context, index) {
-            final task = tasks[index];
-            return Text(task.name);
-          },
+        final filteredTasks =
+            tasks.where((task) => task.complete != true).toList();
+
+        return Padding(
+          padding: const EdgeInsets.all(BoxPadding.medium),
+          child: ListView.builder(
+            itemCount: filteredTasks.length,
+            itemBuilder: (context, index) {
+              final task = filteredTasks[index];
+              return TaskItemView(task: task);
+            },
+          ),
         );
       },
     );

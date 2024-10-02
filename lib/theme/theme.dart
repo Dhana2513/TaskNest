@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 ThemeData appTheme = ThemeData(
+  primaryColorLight: appThemeColor.shade200,
   colorScheme: ColorScheme.fromSwatch(
-    primarySwatch: appColor,
-    accentColor: appColor.shade700,
+    primarySwatch: appThemeColor,
+    accentColor: appThemeColor.shade700,
   ),
   useMaterial3: true,
 );
@@ -21,4 +22,4 @@ final Map<int, Color> _pinkMap = {
   900: const Color(0xFFC51162),
 };
 
-MaterialColor appColor = MaterialColor(0xFFFF4081, _pinkMap);
+MaterialColor appThemeColor = MaterialColor(0xFFFF4081, _pinkMap);

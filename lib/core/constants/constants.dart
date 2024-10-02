@@ -4,7 +4,7 @@ abstract class Constants {
   static const topics = 'Topics';
   static const interview = 'Interview';
   static const addTopic = 'Add Topic';
-  static const topicName = 'Topic Name';
+  static const taskName = 'Task Name';
   static const flutter = 'Flutter';
   static const dart = 'Dart';
   static const other = 'Other';
@@ -14,6 +14,7 @@ abstract class Constants {
   static const study = 'Study';
   static const next = 'Next';
   static const ok = 'Ok';
+  static const addTask = 'Add Task';
 
   static const startInterview = 'Start Interview';
 
@@ -41,5 +42,21 @@ abstract class Constants {
 
   static const deleteVideo = 'Delete Video';
 
-  static const deleteVideoMessage = 'Are you sure you want to delete <<video>>?';
+  static const deleteVideoMessage =
+      'Are you sure you want to delete <<video>>?';
+
+  static const selectTaskType = 'Select task type';
+
+  static const hour = 'hh';
+  static const minutes = 'mm';
+
+  static const time = 'Time : ';
+
+  static const provideTaskName = 'Please provide Task name';
+
+  static const edit = 'Edit';
+
+  static const scheduleTask = 'Schedule Tasks';
+
+  static const updateTask = 'Update task';
 }

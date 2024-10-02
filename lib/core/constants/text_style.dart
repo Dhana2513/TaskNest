@@ -19,7 +19,7 @@ abstract class UITextStyle {
   );
 
   static const bodyLarge = TextStyle(
-    fontSize: TextSize.large,
+    fontSize: TextSize.basic + 2,
     fontWeight: FontWeight.w400,
   );
 }

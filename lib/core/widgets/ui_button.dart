@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_nest/core/extensions/box_padding.dart';
 
 import '../constants/text_style.dart';
 
@@ -12,7 +13,11 @@ class UIButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).primaryColor),
+        backgroundColor: Theme.of(context).primaryColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(BoxPadding.medium),
+        ),
+      ),
       onPressed: onPressed,
       child: Text(
         title,

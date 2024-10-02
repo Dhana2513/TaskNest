@@ -28,6 +28,7 @@ class Firestore {
   final otherTaskStream = StreamController<List<Task>>();
 
   final List<Task> tasks = [];
+  int maxTaskIndex = 0;
 
   Stream<List<Task>> streamByTaskType(TaskType type) {
     switch (type) {
@@ -54,6 +55,16 @@ class Firestore {
               documentID: doc.id, json: doc.data() as Map<String, dynamic>))
           .toList());
 
+      for (final task in tasks) {
+        if (task.index != null) {
+          if (task.index! > maxTaskIndex) {
+            maxTaskIndex = task.index!;
+          }
+        }
+      }
+
+      tasks.sort((t1, t2) => (t1.index ?? 0) > (t2.index ?? 0) ? 1 : 0);
+
       workTaskStream.sink
           .add(tasks.where((task) => task.taskType == TaskType.work).toList());
 
@@ -75,12 +86,14 @@ class Firestore {
   }
 
   Future<String> addTask(Task task) async {
+    maxTaskIndex++;
+    task.index = maxTaskIndex;
     final doc = await _tasks.add(task.toJson());
     return doc.id;
   }
 
   Future<void> update(Task task) async {
-    final doc = await _tasks.add(task.toJson());
+    final doc = _tasks.doc(task.documentID);
     doc.update(task.toJson());
   }
 
