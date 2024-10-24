@@ -21,6 +21,20 @@ class TotalTimeRequired extends StatelessWidget {
     return totalTime == 0 ? null : totalTime.minutesToDuration;
   }
 
+  String durationText(Duration duration) {
+    final hours = duration.inHours;
+
+    if (hours > 8) {
+      final days = (hours / 8).floor();
+      final remainingMinutes = duration.inMinutes - (days * 8 * 60);
+
+      return '${days.toString()} ${days == 1 ? 'day' : 'days'} '
+          '${remainingMinutes.minutesToDuration.toStringTime} hrs';
+    }
+
+    return duration.toStringTime;
+  }
+
   @override
   Widget build(BuildContext context) {
     final duration = calculateTotalTime();
@@ -46,7 +60,7 @@ class TotalTimeRequired extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(BoxPadding.standard),
       child: Text(
-        'Total required time ${duration.toStringTime} hrs',
+        'Total required time ${durationText(duration)}',
         style: UITextStyle.subtitle1.copyWith(
           color: Theme.of(context).primaryColor,
         ),
