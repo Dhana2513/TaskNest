@@ -52,11 +52,17 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             ListTile(
-              title: const Text(Constants.history),
+              title: const Text(
+                Constants.history,
+                style: UITextStyle.body,
+              ),
               onTap: navigateToHistoryScreen,
             ),
             const ListTile(
-              title: Text(Constants.scheduleTask),
+              title: Text(
+                Constants.scheduleTask,
+                style: UITextStyle.body,
+              ),
             ),
           ],
         ),
@@ -92,7 +98,10 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,
         currentIndex: selectedNavIndex,
-        selectedFontSize: 12,
+        selectedLabelStyle: UITextStyle.body.copyWith(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+        ),
         selectedItemColor: Theme.of(context).primaryColor,
         showSelectedLabels: true,
         onTap: (index) {

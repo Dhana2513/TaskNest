@@ -6,8 +6,7 @@ A new Flutter project.
 # Add task
 # Delete Task
 # Update Task
+# History
 
 - Add sub tasks
-- Rearrange tasks
 - Task Scheduler 
-- History

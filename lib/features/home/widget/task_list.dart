@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_nest/core/extensions/box_padding.dart';
 import 'package:task_nest/core/services/firestore.dart';
+import 'package:task_nest/features/home/widget/total_time_required.dart';
 import 'package:task_nest/shared/type/task_type.dart';
 
 import '../../../shared/model/task.dart';
@@ -31,12 +32,11 @@ class _TaskListState extends State<TaskList>
 
         return Padding(
           padding: const EdgeInsets.all(BoxPadding.medium),
-          child: ListView.builder(
-            itemCount: filteredTasks.length,
-            itemBuilder: (context, index) {
-              final task = filteredTasks[index];
-              return TaskItemView(task: task);
-            },
+          child: ListView(
+            children: [
+              TotalTimeRequired(tasks: filteredTasks),
+              ...filteredTasks.map((task) => TaskItemView(task: task)),
+            ],
           ),
         );
       },

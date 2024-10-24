@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:recase/recase.dart';
 import 'package:task_nest/core/extensions/box_padding.dart';
@@ -60,7 +58,8 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
 
   void showError(String message) {
     ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
+        .showSnackBar(
+        SnackBar(content: Text(message, style: UITextStyle.body,)));
   }
 
   void addTask() async {
@@ -129,25 +128,26 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   ),
                   child: DropdownButton<TaskType>(
                     underline: Container(),
-                    hint: const Text(Constants.selectTaskType),
+                    hint: const Text(Constants.selectTaskType, style: UITextStyle.body,),
                     value: selectedTaskType,
                     items: TaskType.values
-                        .map((taskType) => DropdownMenuItem<TaskType>(
-                              value: taskType,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: BoxPadding.small,
-                                  horizontal: BoxPadding.standard,
-                                ),
-                                child: Row(
-                                  children: [
-                                    taskType.icon,
-                                    const SizedBox(width: BoxPadding.small),
-                                    Text(taskType.name.titleCase),
-                                  ],
-                                ),
-                              ),
-                            ))
+                        .map((taskType) =>
+                        DropdownMenuItem<TaskType>(
+                          value: taskType,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: BoxPadding.small,
+                              horizontal: BoxPadding.standard,
+                            ),
+                            child: Row(
+                              children: [
+                                taskType.icon,
+                                const SizedBox(width: BoxPadding.small),
+                                Text(taskType.name.titleCase, style: UITextStyle.body,),
+                              ],
+                            ),
+                          ),
+                        ))
                         .toList(),
                     onChanged: (selected) {
                       setState(() {
@@ -163,7 +163,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
               children: [
                 const Padding(
                   padding: EdgeInsets.all(BoxPadding.xSmall),
-                  child: Text(Constants.time, style: UITextStyle.subtitle),
+                  child: Text(Constants.time, style: UITextStyle.subtitle1),
                 ),
                 SizedBox(
                   width: BoxPadding.xxLarge + BoxPadding.xSmall,
@@ -174,8 +174,8 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.all(BoxPadding.xSmall),
-                  child: Text(':'),
+                    padding: EdgeInsets.all(BoxPadding.xSmall),
+                    child: Text(':', style: UITextStyle.body,),
                 ),
                 SizedBox(
                   width: BoxPadding.xxLarge + BoxPadding.xSmall,

@@ -53,11 +53,17 @@ class _TaskItemViewState extends State<TaskItemView> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('${Constants.delete} ${widget.task.name}?'),
+          title: Text(
+            '${Constants.delete} ${widget.task.name}?',
+            style: UITextStyle.title,
+          ),
           content: Text('${Constants.deleteAlertText} ${widget.task.name}?'),
           actions: [
             TextButton(
-              child: const Text(Constants.delete),
+              child: const Text(
+                Constants.delete,
+                style: UITextStyle.body,
+              ),
               onPressed: () async {
                 dismissDialog();
                 await Firestore.instance.deleteTask(widget.task);
@@ -66,8 +72,13 @@ class _TaskItemViewState extends State<TaskItemView> {
               },
             ),
             TextButton(
-              child: const Text(Constants.cancel),
-              onPressed: () => dismissDialog,
+              child: const Text(
+                Constants.cancel,
+                style: UITextStyle.body,
+              ),
+              onPressed: () {
+                dismissDialog();
+              },
             ),
           ],
         );
@@ -88,7 +99,12 @@ class _TaskItemViewState extends State<TaskItemView> {
         onTap: onTap,
         child: Row(
           children: [
-            SizedBox(width: BoxPadding.xxLarge, child: Text(name)),
+            SizedBox(
+                width: BoxPadding.xxLarge,
+                child: Text(
+                  name,
+                  style: UITextStyle.body,
+                )),
             const SizedBox(width: BoxPadding.small),
             Icon(
               icon,
@@ -116,9 +132,7 @@ class _TaskItemViewState extends State<TaskItemView> {
 
   String getDuration() {
     final duration = widget.task.minutes?.minutesToDuration;
-    if (duration == null) return '';
-    return '${duration.hours.toString().padLeft(2, '0')}:'
-        '${duration.minutes.toString().padLeft(2, '0')}';
+    return duration?.toStringTime ?? '';
   }
 
   @override
@@ -133,8 +147,8 @@ class _TaskItemViewState extends State<TaskItemView> {
         boxShadow: [
           BoxShadow(
             color: Theme.of(context).primaryColor.withOpacity(0.2),
-            blurRadius: BoxPadding.xxSmall,
-            spreadRadius: 0.5,
+            blurRadius: BoxPadding.xxxSmall,
+            spreadRadius: 0.1,
           ),
         ],
       ),
@@ -147,10 +161,15 @@ class _TaskItemViewState extends State<TaskItemView> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(widget.task.name),
+            Text(
+              widget.task.name,
+              style: UITextStyle.boldBody,
+            ),
             Text(
               widget.task.minutes != 0 ? getDuration() : '',
-              style: UITextStyle.bodyLarge,
+              style: UITextStyle.body.copyWith(
+                color: Theme.of(context).primaryColor,
+              ),
             ),
           ],
         ),

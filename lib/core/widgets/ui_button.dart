@@ -21,7 +21,7 @@ class UIButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         title,
-        style: UITextStyle.subtitle.copyWith(color: Colors.white),
+        style: UITextStyle.subtitle1.copyWith(color: Colors.white),
       ),
     );
   }

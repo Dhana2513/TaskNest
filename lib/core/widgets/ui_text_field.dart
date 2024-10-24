@@ -27,7 +27,7 @@ class UiTextField extends StatelessWidget {
         ),
         border: const OutlineInputBorder(),
         hintText: hintText,
-        hintStyle: UITextStyle.subtitle.copyWith(color: Colors.black54),
+        hintStyle: UITextStyle.subtitle1.copyWith(color: Colors.black54),
       ),
       keyboardType: keyboardType,
       textCapitalization: TextCapitalization.sentences,
