@@ -19,17 +19,23 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   void initState() {
     super.initState();
+    fetchCompletedTask();
+  }
+
+  void fetchCompletedTask() {
     completedTask = Firestore.instance.tasks
-        .where((task) => task.complete == true)
+        .where((task) => task.complete == true && task.completedDate != null)
         .toList();
+
+    completedTask.sort(
+        (task1, task2) => task2.completedDate!.compareTo(task1.completedDate!));
   }
 
   void refreshScreen() {
-    completedTask = Firestore.instance.tasks
-        .where((task) => task.complete == true)
-        .toList();
-
-    setState(() {});
+    fetchCompletedTask();
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override

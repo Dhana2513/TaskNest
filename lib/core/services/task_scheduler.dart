@@ -53,7 +53,7 @@ class TaskScheduler {
   List<Task> _removeDuplicateTasks(List<Task> tasks) {
     tasks.removeWhere((task) => task.date == null);
 
-    tasks.sort((a, b) => a.date!.compareTo(b.date!));
+    tasks.sort((a, b) => b.date!.compareTo(a.date!));
 
     final taskList = <Task>[];
     for (final task in tasks) {

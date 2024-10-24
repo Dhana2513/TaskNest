@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:recase/recase.dart';
 import 'package:task_nest/core/constants/text_style.dart';
@@ -23,7 +24,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int selectedNavIndex = 2;
+  late int selectedNavIndex;
   late final PageController pageController;
   Timer? timer;
 
@@ -33,6 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     Firestore.instance.allTasks();
+    try {
+      selectedNavIndex = Platform.isAndroid || Platform.isIOS ? 2 : 0;
+    } catch (_) {
+      selectedNavIndex = 0;
+    }
+
     pageController = PageController(initialPage: selectedNavIndex);
   }
 
