@@ -46,7 +46,7 @@ class TotalTimeRequired extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(BoxPadding.standard),
       child: Text(
-        'Total required time ${duration.toStringTime} min',
+        'Total required time ${duration.toStringTime} hrs',
         style: UITextStyle.subtitle1.copyWith(
           color: Theme.of(context).primaryColor,
         ),

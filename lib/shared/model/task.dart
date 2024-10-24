@@ -1,4 +1,5 @@
 import 'package:task_nest/core/extensions/map_extension.dart';
+import 'package:task_nest/shared/type/repeat_type.dart';
 import 'package:task_nest/shared/type/task_type.dart';
 
 class Task {
@@ -11,6 +12,8 @@ class Task {
     this.complete,
     this.subTasks,
     this.completedDate,
+    this.date,
+    this.repeatType = RepeatType.never,
   });
 
   String? documentID;
@@ -22,6 +25,8 @@ class Task {
   List<Task>? subTasks;
   TaskType taskType;
   DateTime? completedDate;
+  DateTime? date;
+  RepeatType repeatType;
 
   factory Task.fromJson({
     String? documentID,
@@ -34,7 +39,9 @@ class Task {
       minutes: json.intForKey(TaskKey.minutes),
       complete: json.boolForKey(TaskKey.complete),
       taskType: TaskTypeX.fromString(json.stringForKey(TaskKey.taskType)),
+      repeatType: RepeatTypeX.fromString(json.stringForKey(TaskKey.repeatType)),
       completedDate: json.dateForKey(TaskKey.completedDate),
+      date: json.dateForKey(TaskKey.date),
       subTasks: json
           .listForKey(TaskKey.subTasks)
           .map((item) => Task.fromJson(json: item))
@@ -50,6 +57,8 @@ class Task {
       TaskKey.minutes: minutes,
       TaskKey.complete: complete,
       TaskKey.completedDate: completedDate,
+      TaskKey.date: date,
+      TaskKey.repeatType: repeatType.name,
       TaskKey.subTasks: subTasks?.map((task) => task.toJson()).toList() ?? []
     };
   }
@@ -63,6 +72,8 @@ class Task {
     bool? complete,
     List<Task>? subTasks,
     DateTime? completedDate,
+    DateTime? date,
+    RepeatType? repeatType,
   }) {
     return Task(
       documentID: documentID ?? this.documentID,
@@ -73,6 +84,8 @@ class Task {
       complete: complete ?? this.complete,
       subTasks: subTasks ?? this.subTasks,
       completedDate: completedDate ?? this.completedDate,
+      date: date ?? this.date,
+      repeatType: repeatType ?? this.repeatType,
     );
   }
 }
@@ -85,4 +98,6 @@ abstract class TaskKey {
   static const complete = 'complete';
   static const completedDate = 'completedDate';
   static const subTasks = 'subTasks';
+  static const date = 'date';
+  static const repeatType = 'repeatType';
 }

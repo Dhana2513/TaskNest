@@ -10,6 +10,7 @@ import 'package:task_nest/core/widgets/ui_button.dart';
 import 'package:task_nest/core/widgets/ui_dialog.dart';
 import 'package:task_nest/core/widgets/ui_text_field.dart';
 import 'package:task_nest/shared/model/task.dart';
+import 'package:task_nest/shared/type/repeat_type.dart';
 import 'package:task_nest/shared/type/task_type.dart';
 
 import '../../core/constants/constants.dart';
@@ -35,6 +36,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   late final TextEditingController minuteController;
   late final ValueNotifier<bool> loadingNotifier;
   late TaskType selectedTaskType;
+  late RepeatType selectedRepeatType = RepeatType.never;
 
   @override
   void initState() {
@@ -52,14 +54,18 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
 
     selectedTaskType =
         widget.taskType ?? widget.task?.taskType ?? TaskType.other;
+
+    selectedRepeatType = widget.task?.repeatType ?? RepeatType.never;
   }
 
   Widget get padding => const SizedBox(height: BoxPadding.standard);
 
   void showError(String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(
-        SnackBar(content: Text(message, style: UITextStyle.body,)));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+      message,
+      style: UITextStyle.body,
+    )));
   }
 
   void addTask() async {
@@ -71,6 +77,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
       showError(Constants.provideTaskName);
       return;
     }
+
     loadingNotifier.value = true;
 
     final hours = int.tryParse(hourText) ?? 0;
@@ -78,17 +85,20 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
 
     final duration = (hours * 60) + minutes;
 
-
     final task = Task(
       name: taskName,
       taskType: selectedTaskType,
       minutes: duration,
+      date: DateTime.now(),
+      repeatType: selectedRepeatType,
     );
 
     if (widget.task != null) {
       final updatedTask = widget.task!.copyWith(
         name: taskName,
         taskType: selectedTaskType,
+        date: DateTime.now(),
+        repeatType: selectedRepeatType,
         minutes: duration,
       );
 
@@ -128,26 +138,31 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   ),
                   child: DropdownButton<TaskType>(
                     underline: Container(),
-                    hint: const Text(Constants.selectTaskType, style: UITextStyle.body,),
+                    hint: const Text(
+                      Constants.selectTaskType,
+                      style: UITextStyle.body,
+                    ),
                     value: selectedTaskType,
                     items: TaskType.values
-                        .map((taskType) =>
-                        DropdownMenuItem<TaskType>(
-                          value: taskType,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: BoxPadding.small,
-                              horizontal: BoxPadding.standard,
-                            ),
-                            child: Row(
-                              children: [
-                                taskType.icon,
-                                const SizedBox(width: BoxPadding.small),
-                                Text(taskType.name.titleCase, style: UITextStyle.body,),
-                              ],
-                            ),
-                          ),
-                        ))
+                        .map((taskType) => DropdownMenuItem<TaskType>(
+                              value: taskType,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: BoxPadding.small,
+                                  horizontal: BoxPadding.standard,
+                                ),
+                                child: Row(
+                                  children: [
+                                    taskType.icon,
+                                    const SizedBox(width: BoxPadding.small),
+                                    Text(
+                                      taskType.name.titleCase,
+                                      style: UITextStyle.body,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ))
                         .toList(),
                     onChanged: (selected) {
                       setState(() {
@@ -174,8 +189,11 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   ),
                 ),
                 const Padding(
-                    padding: EdgeInsets.all(BoxPadding.xSmall),
-                    child: Text(':', style: UITextStyle.body,),
+                  padding: EdgeInsets.all(BoxPadding.xSmall),
+                  child: Text(
+                    ':',
+                    style: UITextStyle.body,
+                  ),
                 ),
                 SizedBox(
                   width: BoxPadding.xxLarge + BoxPadding.xSmall,
@@ -185,6 +203,49 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                     keyboardType: TextInputType.number,
                   ),
                 ),
+              ],
+            ),
+            padding,
+            Row(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(BoxPadding.xSmall),
+                  child: Text(Constants.repeat, style: UITextStyle.subtitle1),
+                ),
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.shade400),
+                    borderRadius: BorderRadius.circular(BoxPadding.small),
+                  ),
+                  child: DropdownButton<RepeatType>(
+                    underline: Container(),
+                    hint: const Text(
+                      Constants.selectRepeatType,
+                      style: UITextStyle.body,
+                    ),
+                    value: selectedRepeatType,
+                    items: RepeatType.values
+                        .map((repeatType) => DropdownMenuItem<RepeatType>(
+                              value: repeatType,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: BoxPadding.small,
+                                  horizontal: BoxPadding.standard,
+                                ),
+                                child: Text(
+                                  repeatType.name.titleCase,
+                                  style: UITextStyle.body,
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                    onChanged: (selected) {
+                      setState(() {
+                        selectedRepeatType = selected ?? RepeatType.never;
+                      });
+                    },
+                  ),
+                )
               ],
             ),
             padding,

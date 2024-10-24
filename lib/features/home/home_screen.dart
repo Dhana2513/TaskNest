@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:recase/recase.dart';
 import 'package:task_nest/core/constants/text_style.dart';
@@ -11,6 +12,7 @@ import '../../core/constants/constants.dart';
 import '../../core/services/firestore.dart';
 import '../../core/widgets/main_scaffold.dart';
 import '../../shared/type/task_type.dart';
+import '../scheduled_tasks/scheduled_tasks.dart';
 import 'widget/task_list.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,8 +23,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int selectedNavIndex = 0;
+  int selectedNavIndex = 2;
   late final PageController pageController;
+  Timer? timer;
 
   TaskType get selectedTaskType => TaskType.values[selectedNavIndex];
 
@@ -52,15 +55,16 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             ListTile(
+              onTap: navigateToHistoryScreen,
               title: const Text(
                 Constants.history,
                 style: UITextStyle.body,
               ),
-              onTap: navigateToHistoryScreen,
             ),
-            const ListTile(
-              title: Text(
-                Constants.scheduleTask,
+            ListTile(
+              onTap: navigateToTaskSchedulerScreen,
+              title: const Text(
+                Constants.scheduledTask,
                 style: UITextStyle.body,
               ),
             ),
@@ -70,6 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void navigateToHistoryScreen() {
     UINavigator.push(context: context, screen: const HistoryScreen());
+  }
+
+  void navigateToTaskSchedulerScreen() {
+    UINavigator.push(context: context, screen: const ScheduledTasks());
   }
 
   void addTask() {
@@ -86,6 +94,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return MainScaffold(
       body: PageView(
         controller: pageController,
+        onPageChanged: (index) {
+          //TODO: implement better solution
+          timer?.cancel();
+          timer = Timer(const Duration(milliseconds: 100), () {
+            setState(() {
+              selectedNavIndex = index;
+            });
+          });
+        },
         children: TaskType.values
             .map((taskType) => TaskList(taskType: taskType))
             .toList(),
@@ -108,8 +125,8 @@ class _HomeScreenState extends State<HomeScreen> {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             pageController.animateToPage(
               selectedNavIndex,
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.ease,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeIn,
             );
           });
 

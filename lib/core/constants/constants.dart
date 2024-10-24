@@ -46,17 +46,26 @@ abstract class Constants {
       'Are you sure you want to delete <<video>>?';
 
   static const selectTaskType = 'Select task type';
+  static const selectRepeatType = 'Select repeat type';
 
   static const hour = 'hh';
   static const minutes = 'mm';
 
-  static const time = 'Time : ';
+  static const time = 'Time :    ';
 
   static const provideTaskName = 'Please provide Task name';
 
   static const edit = 'Edit';
 
-  static const scheduleTask = 'Schedule Tasks';
+  static const scheduledTask = 'Scheduled Tasks';
 
   static const updateTask = 'Update task';
+
+  static const taskScheduler = 'Task Scheduler';
+
+  static const repeat = 'Repeat :';
+  static const repeatNever = 'Never';
+  static const repeatDaily = 'Daily';
+  static const repeatWeekly = 'Weekly';
+  static const repeatMonthly = 'Monthly';
 }

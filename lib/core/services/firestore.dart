@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:task_nest/core/services/task_scheduler.dart';
 import 'package:task_nest/shared/model/task.dart';
 import 'package:task_nest/shared/type/task_type.dart';
 
@@ -62,6 +63,8 @@ class Firestore {
           }
         }
       }
+
+      TaskScheduler.instance.scheduleTask(tasks);
 
       tasks.sort((t1, t2) => (t1.index ?? 0) > (t2.index ?? 0) ? 1 : 0);
 
