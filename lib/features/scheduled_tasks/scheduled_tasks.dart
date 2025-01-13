@@ -13,7 +13,7 @@ class ScheduledTasks extends StatefulWidget {
 class _ScheduledTasksState extends State<ScheduledTasks> {
   @override
   Widget build(BuildContext context) {
-    return MainScaffold(
+    return const MainScaffold(
       appBarTitle: Constants.taskScheduler,
     );
   }

@@ -21,7 +21,6 @@ class Firestore {
   late final FirebaseFirestore _firestore;
   late final CollectionReference _tasks;
 
-  final workTaskStream = StreamController<List<Task>>();
   final studyTaskStream = StreamController<List<Task>>();
   final homeTaskStream = StreamController<List<Task>>();
   final skillsTaskStream = StreamController<List<Task>>();
@@ -33,8 +32,6 @@ class Firestore {
 
   Stream<List<Task>> streamByTaskType(TaskType type) {
     switch (type) {
-      case TaskType.work:
-        return workTaskStream.stream;
       case TaskType.study:
         return studyTaskStream.stream;
       case TaskType.skills:
@@ -67,9 +64,6 @@ class Firestore {
       TaskScheduler.instance.scheduleTask(tasks);
 
       tasks.sort((t1, t2) => (t1.index ?? 0) > (t2.index ?? 0) ? 1 : 0);
-
-      workTaskStream.sink
-          .add(tasks.where((task) => task.taskType == TaskType.work).toList());
 
       studyTaskStream.sink
           .add(tasks.where((task) => task.taskType == TaskType.study).toList());

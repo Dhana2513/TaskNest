@@ -10,6 +10,8 @@ import 'package:task_nest/features/home/add_task_dialog.dart';
 import 'package:task_nest/shared/model/task.dart';
 import 'package:task_nest/shared/type/task_type.dart';
 
+import '../../task_details/task_details.dart';
+
 class TaskItemView extends StatefulWidget {
   const TaskItemView({
     super.key,
@@ -27,7 +29,14 @@ class TaskItemView extends StatefulWidget {
 class _TaskItemViewState extends State<TaskItemView> {
   final listTileKey = GlobalKey();
 
-  void openTaskDetails() {}
+  void openTaskDetails() {
+    UINavigator.push(
+      context: context,
+      screen: TaskDetailsScreen(
+        task: widget.task,
+      ),
+    );
+  }
 
   void editTask() {
     showDialog(

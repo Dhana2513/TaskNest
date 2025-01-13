@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 enum TaskType {
-  work,
   study,
-  home,
   skills,
+  home,
   legal,
   other,
 }
@@ -12,14 +11,12 @@ enum TaskType {
 extension TaskTypeX on TaskType {
   static TaskType fromString(String value) {
     switch (value.toLowerCase()) {
-      case 'work':
-        return TaskType.work;
       case 'study':
         return TaskType.study;
-      case 'home':
-        return TaskType.home;
       case 'skills':
         return TaskType.skills;
+      case 'home':
+        return TaskType.home;
       case 'legal':
         return TaskType.legal;
       default:
@@ -29,8 +26,6 @@ extension TaskTypeX on TaskType {
 
   IconData get iconData {
     switch (this) {
-      case TaskType.work:
-        return Icons.work_outline;
       case TaskType.study:
         return Icons.book_outlined;
       case TaskType.home:
