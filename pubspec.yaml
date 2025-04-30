@@ -17,6 +17,7 @@ dependencies:
   cloud_firestore: ^5.4.1
   firebase_remote_config: ^5.1.1
   recase: ^4.1.0
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:

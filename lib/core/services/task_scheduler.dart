@@ -40,6 +40,8 @@ class TaskScheduler {
           case RepeatType.never:
             break;
         }
+
+        Firestore.instance.deleteTask(task);
       }
     }
 

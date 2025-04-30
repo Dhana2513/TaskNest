@@ -36,6 +36,7 @@ class _TaskListState extends State<TaskList>
             children: [
               TotalTimeRequired(tasks: filteredTasks),
               ...filteredTasks.map((task) => TaskItemView(task: task)),
+              const SizedBox(height: 64,)
             ],
           ),
         );
