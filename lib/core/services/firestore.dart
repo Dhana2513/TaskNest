@@ -83,8 +83,7 @@ class Firestore {
   }
 
   Future<String> addTask(Task task) async {
-    maxTaskIndex++;
-    task.index = maxTaskIndex;
+    task.index = ++maxTaskIndex;
     final doc = await _tasks.add(task.toJson());
     return doc.id;
   }
