@@ -28,11 +28,11 @@ class TaskDetailsScreen extends StatelessWidget {
               style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16),
-            Text(
+            const Text(
               'Subtasks',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Expanded(
               child: ListView.builder(
                 itemCount: task.subTasks?.length ?? 0,
